@@ -1,11 +1,11 @@
 import * as types from "../actions/actionTypes"
 
 export interface State {
-    citiesList: any[]
+    citiesList: any[] //TODO
 }
 
 const defaultState: State = {
-    citiesList: ["alam"]
+    citiesList: []
 };
 
 export default function citiesListReducer(state: State = defaultState, action: any): State {
@@ -14,6 +14,15 @@ export default function citiesListReducer(state: State = defaultState, action: a
         case types.GET_CITIES_SUCCESS:
             return {
                 citiesList: action.payload
+            }
+        case types.GET_CITIES_FAIL:
+        //TODO
+        case types.ADD_CITY_TO_LIST_FAIL:
+        //TODO
+        case types.ADD_CITY_TO_LIST_SUCCESS:
+            return {
+                ...state,
+                citiesList: [...state.citiesList, action.payload]
             }
         default:
             return state

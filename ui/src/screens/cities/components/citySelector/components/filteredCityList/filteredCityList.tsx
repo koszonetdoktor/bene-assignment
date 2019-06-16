@@ -1,8 +1,9 @@
 import React from "react"
-import { FilterdCity } from "../../types";
+import { City } from "../../types";
 
 interface Props {
-    cities: FilterdCity[]
+    cities: City[]
+    onCitySelected: (selected: City) => () => void
 }
 
 function FilteredCityList(props: Props) {
@@ -10,7 +11,7 @@ function FilteredCityList(props: Props) {
         <ul>
             {props.cities.map(city => {
                 return (
-                    <li key={city.geonameid}>
+                    <li key={city.geonameid as number} onClick={props.onCitySelected(city)}>
                         {city.name}
                     </li>
                 )

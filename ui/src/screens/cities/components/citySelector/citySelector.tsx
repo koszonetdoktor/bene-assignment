@@ -1,34 +1,47 @@
 import React, { useState, useEffect } from "react"
 import { RouteComponentProps } from "react-router-dom"
 import axios from "../../../../utils/axios"
-import { FilterdCity } from "./types";
-import FilteredCityList from "./components/filteredCityList";
+import { City, defaultCity } from "./types"
+import FilteredCityList from "./components/filteredCityList"
+import { connect } from "react-redux"
+import { addCityToList } from "../../../../actions/listActions"
 
-function CitySelector(props: RouteComponentProps) {
-    const [cityName, setCityName] = useState<string>("")
-    const [filteredCities, setFilteredCities] = useState<FilterdCity[]>([])
+type Props = RouteComponentProps & {
+    addCity: (city: City) => void
+}
+
+function CitySelector(props: Props) {
+    const [city, setCity] = useState<City>(defaultCity)
+    const [filteredCities, setFilteredCities] = useState<City[]>([])
 
     useEffect(() => {
-        if (cityName !== "") {
-            axios.get(`/city/${cityName}`)
+        if (city.name !== "") {
+            axios.get(`/city/${city.name}`)
                 .then((resp) => {
                     setFilteredCities(resp.data)
                 })
         } else {
             setFilteredCities([])
         }
-    }, [cityName])
+    }, [city])
 
     const onNavigateBack = () => {
         props.history.goBack()
     }
 
     const onCityNameChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCityName(event.target.value)
+        setCity({
+            geonameid: null,
+            name: event.target.value
+        })
     }
 
     const onSave = () => {
-        console.log("save")
+        props.addCity(city)
+    }
+
+    const onCitySelected = (selected: City) => () => {
+        setCity(selected)
     }
 
     return (
@@ -39,14 +52,29 @@ function CitySelector(props: RouteComponentProps) {
                     <input
                         type="text"
                         autoFocus={true}
-                        value={cityName}
+                        value={city.name}
                         onChange={onCityNameChanged}
                     />
                 </label>
             </form>
-            <FilteredCityList cities={filteredCities} />
-            <button onClick={onSave}>Save</button>
+            <FilteredCityList
+                cities={filteredCities}
+                onCitySelected={onCitySelected}
+            />
+            <button
+                disabled={city.geonameid === null}
+                onClick={onSave}
+            >
+                Save
+            </button>
         </div>
     )
 }
-export default CitySelector
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addCity: (city: City) => dispatch(addCityToList(city))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(CitySelector)
