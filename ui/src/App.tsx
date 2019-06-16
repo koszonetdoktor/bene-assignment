@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from "./utils/axios"
 import { BrowserRouter as Router, Route } from "react-router-dom"
 import Login from "./screens/login"
-import CitiesList from "./screens/citiesList"
+import Cities from "./screens/cities"
 import { createStore, applyMiddleware } from "redux"
 import thunk from "redux-thunk"
 import reducer, { State } from "./reducers"
@@ -55,7 +55,7 @@ const App = () => {
             })
     }
     const onTestRequest3 = () => {
-        axios.get("/cities/buda")
+        axios.get("/city/buda")
             .then((rep) => {
                 console.log("rRESP", rep.data)
             }).catch(err => {
@@ -75,7 +75,7 @@ const App = () => {
         <Provider store={store}>
             <Router>
                 <Route exact path="/" component={Login} />
-                <Route path="/list" component={CitiesList} />
+                <Route path="/cities" component={Cities} />
             </Router>
         </Provider>
     );

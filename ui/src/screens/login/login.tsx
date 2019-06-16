@@ -20,7 +20,7 @@ function Login(props: RouteComponentProps) {
         }
         axios.post("/authenticate", body)
             .then(() => {
-                props.history.push("/list")
+                props.history.push("/cities")
             })
             .catch(() => {
                 setIsLoginError(true)

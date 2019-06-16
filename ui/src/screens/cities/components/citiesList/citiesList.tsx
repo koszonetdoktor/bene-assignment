@@ -1,9 +1,9 @@
 import React, { useEffect } from "react"
 import { connect } from "react-redux"
-import { State } from "../../reducers"
+import { State } from "../../../../reducers"
 import { RouteComponentProps } from "react-router-dom"
-import { getCitiesList } from "../../actions/listActions"
-import { UserCity } from "./types";
+import { getCitiesList } from "../../../../actions/listActions"
+import { UserCity } from "./types"
 
 type Props = RouteComponentProps & {
     userCities: UserCity[],
@@ -14,6 +14,10 @@ function CitiesList(props: Props) {
     useEffect(() => {
         props.getCitiesList()
     }, [])
+
+    const onAddNewCity = () => {
+        props.history.push(`${props.match.url}/select`)
+    }
 
     const renderCities = () => {
         return props.userCities.map(userCity => {
@@ -28,7 +32,12 @@ function CitiesList(props: Props) {
     return (
         <ul>
             {renderCities()}
-            <li key="plus">+</li>
+            <li
+                key="plus"
+                onClick={onAddNewCity}
+            >
+                +
+            </li>
         </ul>
     )
 }
