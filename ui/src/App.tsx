@@ -1,26 +1,65 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import axios from "./utils/axios"
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+    const [credentials, setCredentials] = useState<{ name: string, pw: string }>({ name: "", pw: "" })
+
+    const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setCredentials({
+            ...credentials,
+            [event.target.name]: event.target.value
+        })
+    }
+
+    const onFormSubmit = () => {
+        const body = {
+            name: credentials.name,
+            password: credentials.pw
+        }
+        axios.post("/authenticate", body)
+            .then((resp) => {
+                console.log("resp", resp)
+            }).catch((err) => {
+                console.error("ERRR", err)
+            })
+    }
+
+    const onTestRequest = () => {
+        axios.get("/users/admin/cities")
+            .then((rep) => {
+                console.log("rRESP", rep.data)
+            }).catch(err => {
+                console.error("ERRRR", err)
+            })
+    }
+
+    return (
+        <div>
+            <form>
+                <label>
+                    Name:
+                    <input
+                        type="text"
+                        name="name"
+                        autoFocus={true}
+                        value={credentials.name}
+                        onChange={onInputChange}
+                    />
+                </label>
+                <label>
+                    Password:
+                    <input
+                        type="text"
+                        name="pw"
+                        value={credentials.pw}
+                        onChange={onInputChange}
+                    />
+                </label>
+            </form>
+            <button onClick={onFormSubmit}>Login</button>
+            <button onClick={onTestRequest}>Test button</button>
+        </div>
+    );
 }
 
 export default App;

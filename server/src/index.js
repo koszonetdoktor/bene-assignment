@@ -4,10 +4,9 @@ const bodyParse = require("body-parser")
 const http = require("http")
 const jwt = require("jsonwebtoken")
 const cookieParser = require("cookie-parser")
+const path = require("path")
 
 const app = express()
-const port = 3000
-
 const pool = new Pool({
     user: 'gergohalmi',
     host: 'localhost',
@@ -15,7 +14,8 @@ const pool = new Pool({
     port: 5432
 })
 
-app.use(express.static("../"))
+const secret = "mysecret"
+
 app.use(bodyParse.json())
 app.use(cookieParser())
 
@@ -28,7 +28,7 @@ const withAuth = function (req, res, next) {
         res.status(401).send('Unauthorized: No token provided');
     } else {
         console.log("token", token)
-        jwt.verify(token, "mysecretsshhh", function (err, decoded) {
+        jwt.verify(token, secret, function (err, decoded) {
             if (err) {
                 res.status(401).send('Unauthorized: Invalid token');
             } else {
@@ -39,26 +39,46 @@ const withAuth = function (req, res, next) {
         });
     }
 }
-
-app.get("/", (req, res) => {
-    console.log("request")
-    res.sendFile(path.join(__dirname, "../", "index.html"))
-})
+let port = 3000
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("../ui/build"))
+    app.get("/", (req, res) => {
+        res.sendFile(path.join(__dirname, "../ui/build", "index.html"))
+    })
+} else if (process.env.NODE_ENV === "develop") {
+    console.log("set port")
+    port = 3001
+}
 
 app.post("/authenticate", (request, response) => {
+
     const { name, password } = request.body
 
     console.log(name, password)
-
-    const payload = { name };
-    const token = jwt.sign(payload, "mysecretsshhh", {
-        expiresIn: '1h'
-    });
-    response.cookie('token', token, { httpOnly: true })
-        .sendStatus(200);
+    pool.query("SELECT * FROM users2 WHERE name = $1 AND password = $2", [name, password], (err, res) => {
+        if (err) {
+            response.status(500)
+                .json({
+                    error: 'Incorrect email or password'
+                })
+        }
+        if (res.rows.length) {
+            const payload = { name };
+            const token = jwt.sign(payload, secret, {
+                expiresIn: '1h'
+            });
+            response.cookie('token', token, { httpOnly: true })
+                .sendStatus(200);
+        } else {
+            response.status(401)
+                .json({
+                    error: 'Incorrect email or password'
+                })
+        }
+    })
 })
 
-app.get("/users/:name/cities", (request, response) => {
+app.get("/users/:name/cities", withAuth, (request, response) => {
     const { name } = request.params
     pool.query("SELECT * FROM users_cities WHERE user_name = $1", [name], (err, res) => {
         if (err) {
@@ -127,7 +147,3 @@ async function getWeatherInfo(cityId) {
 }
 
 app.listen(port, () => console.log(`App is listening to port ${port}`))
-
-pool.query("SELECT * FROM geoname WHERE name='Budapest'", (err, res) => {
-    console.log(res.rows, err)
-})
