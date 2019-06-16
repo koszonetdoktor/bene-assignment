@@ -1,0 +1,11 @@
+{
+    "auth": {
+        "secret": "mysecret"
+    },
+    "db": {
+        "user": "gergohalmi",
+        "host": "localhost",
+        "database": "testdb",
+        "port": 5432
+    }
+}

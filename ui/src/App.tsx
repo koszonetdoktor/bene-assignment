@@ -25,14 +25,39 @@ const App = () => {
     }
 
     const onTestRequest = () => {
-        axios.get("/users/admin/cities")
+        axios.get("/users/cities")
             .then((rep) => {
                 console.log("rRESP", rep.data)
             }).catch(err => {
                 console.error("ERRRR", err)
             })
     }
-
+    const onTestRequest2 = () => {
+        axios.post("/users/cities", {
+            cityId: 558055
+        })
+            .then((rep) => {
+                console.log("rRESP", rep.data)
+            }).catch(err => {
+                console.error("ERRRR", err)
+            })
+    }
+    const onTestRequest3 = () => {
+        axios.get("/cities/buda")
+            .then((rep) => {
+                console.log("rRESP", rep.data)
+            }).catch(err => {
+                console.error("ERRRR", err)
+            })
+    }
+    const onTestRequest4 = () => {
+        axios.get("/weather/3054643")
+            .then((rep) => {
+                console.log("rRESP", rep.data)
+            }).catch(err => {
+                console.error("ERRRR", err)
+            })
+    }
     return (
         <div>
             <form>
@@ -57,7 +82,10 @@ const App = () => {
                 </label>
             </form>
             <button onClick={onFormSubmit}>Login</button>
-            <button onClick={onTestRequest}>Test button</button>
+            <button onClick={onTestRequest}>Get cities</button>
+            <button onClick={onTestRequest2}>Post cities</button>
+            <button onClick={onTestRequest3}>get filtered</button>
+            <button onClick={onTestRequest4}>get weather</button>
         </div>
     );
 }
