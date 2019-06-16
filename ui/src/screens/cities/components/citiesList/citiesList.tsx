@@ -3,23 +3,25 @@ import { connect } from "react-redux"
 import { State } from "../../../../reducers"
 import { RouteComponentProps } from "react-router-dom"
 import { getCitiesList } from "../../../../actions/listActions"
-import { UserCity } from "./types"
+import { City } from "../../types";
 
 type Props = RouteComponentProps & {
-    userCities: UserCity[],
+    userCities: City[],
     getCitiesList: () => void
 }
 
 function CitiesList(props: Props) {
     useEffect(() => {
-        props.getCitiesList()
-    }, [])
+        if (props.userCities.length === 0) {
+            props.getCitiesList()
+        }
+    }, [props.userCities])
 
     const onAddNewCity = () => {
         props.history.push(`${props.match.url}/select`)
     }
 
-    const onSelectCity = (cityId: number) => () => {
+    const onSelectCity = (cityId: number | null) => () => {
         console.log("mathc", props.match)
         props.history.push(`${props.match.path}/weather/${cityId}`)
     }
@@ -27,8 +29,8 @@ function CitiesList(props: Props) {
     const renderCities = () => {
         return props.userCities.map(userCity => {
             return (
-                <li key={userCity.city_id} onClick={onSelectCity(userCity.city_id)}>
-                    {userCity.city_id}
+                <li key={userCity.geonameid as number} onClick={onSelectCity(userCity.geonameid)}>
+                    {userCity.name}
                 </li>
             )
         })

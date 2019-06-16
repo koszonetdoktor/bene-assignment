@@ -28,15 +28,19 @@ module.exports.authenticate = (request, response) => {
     })
 }
 
-module.exports.getUserCities = (request, response) => {
+module.exports.getUserCities = async (request, response) => {
     const { name } = request
-    pool.query("SELECT * FROM users_cities WHERE user_name = $1", [name], (err, res) => {
-        if (err) {
-            console.error(err)
-            response.err(err)
-        }
-        response.json(res.rows)
-    })
+    try {
+        const cityIdsRes = await pool.query("SELECT city_id FROM users_cities WHERE user_name = $1", [name])
+
+        const cityIds = cityIdsRes.rows.map((row) => (row.city_id))
+        const paramQueries = cityIdsRes.rows.map((row, i) => (`$${i + 1}`))
+
+        const citiesRes = await pool.query(`SELECT geonameid, name, timezone FROM geoname WHERE geonameid IN (${[...paramQueries]})`, cityIds)
+        response.json(citiesRes.rows)
+    } catch (err) {
+        response.err(err)
+    }
 }
 
 module.exports.addCityToUser = (request, response) => {
@@ -48,14 +52,14 @@ module.exports.addCityToUser = (request, response) => {
         if (err) {
             response.err(err)
         }
-        response.redirect(`/users/cities`)
+        response.redirect("/users/cities")
     })
 }
 
 module.exports.getFilteredCities = (request, response) => {
     const { filterName } = request.params
 
-    pool.query("SELECT geonameid, name FROM geoname WHERE name ILIKE '%' || $1 ||'%' LIMIT 5", [filterName], (err, res) => {
+    pool.query("SELECT geonameid, name, timezone FROM geoname WHERE name ILIKE '%' || $1 ||'%' LIMIT 5", [filterName], (err, res) => {
         if (err) {
             response.status(400).send({ error: err })
         }

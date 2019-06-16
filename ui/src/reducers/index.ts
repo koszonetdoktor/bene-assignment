@@ -1,7 +1,8 @@
 import * as types from "../actions/actionTypes"
+import { City } from "../screens/cities/types";
 
 export interface State {
-    citiesList: any[] //TODO
+    citiesList: City[]
 }
 
 const defaultState: State = {

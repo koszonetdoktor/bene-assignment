@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { RouteComponentProps } from "react-router-dom"
 import axios from "../../../../utils/axios"
-import { City, defaultCity } from "./types"
+import { City, defaultCity } from "../../types"
 import FilteredCityList from "./components/filteredCityList"
 import { connect } from "react-redux"
 import { addCityToList } from "../../../../actions/listActions"
@@ -29,6 +29,7 @@ function CitySelector(props: Props) {
     const onCityNameChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
         setCity({
             geonameid: null,
+            timezone: "",
             name: event.target.value
         })
     }
