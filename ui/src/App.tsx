@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import axios from "./utils/axios"
+import { BrowserRouter as Router, Route } from "react-router-dom"
+import Login from "./screens/login"
+import CitiesList from "./screens/citiesList"
 
 const App = () => {
     const [credentials, setCredentials] = useState<{ name: string, pw: string }>({ name: "", pw: "" })
@@ -59,34 +62,10 @@ const App = () => {
             })
     }
     return (
-        <div>
-            <form>
-                <label>
-                    Name:
-                    <input
-                        type="text"
-                        name="name"
-                        autoFocus={true}
-                        value={credentials.name}
-                        onChange={onInputChange}
-                    />
-                </label>
-                <label>
-                    Password:
-                    <input
-                        type="text"
-                        name="pw"
-                        value={credentials.pw}
-                        onChange={onInputChange}
-                    />
-                </label>
-            </form>
-            <button onClick={onFormSubmit}>Login</button>
-            <button onClick={onTestRequest}>Get cities</button>
-            <button onClick={onTestRequest2}>Post cities</button>
-            <button onClick={onTestRequest3}>get filtered</button>
-            <button onClick={onTestRequest4}>get weather</button>
-        </div>
+        <Router>
+            <Route exact path="/" component={Login} />
+            <Route path="/list" component={CitiesList} />
+        </Router>
     );
 }
 
