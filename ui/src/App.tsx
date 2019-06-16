@@ -3,6 +3,15 @@ import axios from "./utils/axios"
 import { BrowserRouter as Router, Route } from "react-router-dom"
 import Login from "./screens/login"
 import CitiesList from "./screens/citiesList"
+import { createStore, applyMiddleware } from "redux"
+import thunk from "redux-thunk"
+import reducer, { State } from "./reducers"
+import { Provider, connect } from "react-redux"
+
+const store = createStore(
+    reducer,
+    applyMiddleware(thunk)
+)
 
 const App = () => {
     const [credentials, setCredentials] = useState<{ name: string, pw: string }>({ name: "", pw: "" })
@@ -61,11 +70,14 @@ const App = () => {
                 console.error("ERRRR", err)
             })
     }
+    console.log("STOR", store)
     return (
-        <Router>
-            <Route exact path="/" component={Login} />
-            <Route path="/list" component={CitiesList} />
-        </Router>
+        <Provider store={store}>
+            <Router>
+                <Route exact path="/" component={Login} />
+                <Route path="/list" component={CitiesList} />
+            </Router>
+        </Provider>
     );
 }
 
