@@ -19,10 +19,15 @@ function CitiesList(props: Props) {
         props.history.push(`${props.match.url}/select`)
     }
 
+    const onSelectCity = (cityId: number) => () => {
+        console.log("mathc", props.match)
+        props.history.push(`${props.match.path}/weather/${cityId}`)
+    }
+
     const renderCities = () => {
         return props.userCities.map(userCity => {
             return (
-                <li key={userCity.city_id}>
+                <li key={userCity.city_id} onClick={onSelectCity(userCity.city_id)}>
                     {userCity.city_id}
                 </li>
             )

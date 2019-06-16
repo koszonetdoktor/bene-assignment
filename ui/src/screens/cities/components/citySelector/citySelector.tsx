@@ -5,6 +5,7 @@ import { City, defaultCity } from "./types"
 import FilteredCityList from "./components/filteredCityList"
 import { connect } from "react-redux"
 import { addCityToList } from "../../../../actions/listActions"
+import withBackNavigation from "../withBackNavigation";
 
 type Props = RouteComponentProps & {
     addCity: (city: City) => void
@@ -25,10 +26,6 @@ function CitySelector(props: Props) {
         }
     }, [city])
 
-    const onNavigateBack = () => {
-        props.history.goBack()
-    }
-
     const onCityNameChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
         setCity({
             geonameid: null,
@@ -46,7 +43,6 @@ function CitySelector(props: Props) {
 
     return (
         <div>
-            <span onClick={onNavigateBack} >{"<"}</span>
             <form>
                 <label>
                     <input
@@ -77,4 +73,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(CitySelector)
+export default connect(null, mapDispatchToProps)(withBackNavigation(CitySelector))
