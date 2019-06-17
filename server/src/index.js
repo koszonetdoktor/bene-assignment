@@ -14,6 +14,7 @@ let port = 5000
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("../ui/build"))
     app.get("/", (req, res) => {
+        console.log("GET")
         res.sendFile(path.join(__dirname, "../ui/build", "index.html"))
     })
 } else if (process.env.NODE_ENV === "develop") {
