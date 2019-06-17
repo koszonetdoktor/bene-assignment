@@ -5,7 +5,7 @@ const http = require("http")
 
 module.exports.authenticate = (request, response) => {
     const { name, password } = request.body
-    pool.query("SELECT * FROM users2 WHERE name = $1 AND password = $2", [name, password], (err, res) => {
+    pool.query("SELECT * FROM users WHERE name = $1 AND password = $2", [name, password], (err, res) => {
         if (err) {
             response.status(500)
                 .json({
