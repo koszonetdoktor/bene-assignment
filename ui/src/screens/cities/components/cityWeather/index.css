@@ -10,6 +10,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 12px;
 }
 
 .weather__current-time {
@@ -29,13 +30,15 @@
 .weather__temp {
     color: #3893B1;
     font-size: 18px;
+    padding-bottom: 12px;
 }
 
-@media(max-width: 300px) {
+@media(max-width: 400px) {
     .weather__container {
         flex-direction: column;
     }
     .weather__info-block--first-ordered {
         order: -1;
+        padding-bottom: 42px;
     }
 }
