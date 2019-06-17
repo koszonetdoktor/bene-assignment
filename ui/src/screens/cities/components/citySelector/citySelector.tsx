@@ -37,6 +37,7 @@ function CitySelector(props: Props) {
 
     const onSave = () => {
         props.addCity(city)
+        props.history.goBack()
     }
 
     const onCitySelected = (selected: City) => () => {
