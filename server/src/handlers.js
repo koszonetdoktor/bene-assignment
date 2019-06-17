@@ -77,7 +77,10 @@ module.exports.getCityWeather = (request, response) => {
                 sunriseTime: rawWeather.sys.sunrise,
                 sunsetTime: rawWeather.sys.sunset,
                 temperature: rawWeather.main.temp,
-                stateIconId: rawWeather.weather[0].id
+                weather: {
+                    stateIconId: rawWeather.weather[0].id,
+                    description: rawWeather.weather[0].description
+                }
             }
             response.json(weatherResp)
         }).catch((err) => {

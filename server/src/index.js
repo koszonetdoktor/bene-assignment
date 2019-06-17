@@ -10,7 +10,7 @@ app.use(bodyParse.json())
 app.use(cookieParser())
 app.use(routes)
 
-let port = 3000
+let port = 5000
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("../ui/build"))
     app.get("/", (req, res) => {

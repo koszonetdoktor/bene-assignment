@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment } from "react"
 import withBackNavigation from "../withBackNavigation"
 import { RouteComponentProps } from "react-router-dom"
 import axios from "../../../../utils/axios"
-import { WeatherInfo, defaultWeatherInfo } from "./types"
+import { WeatherInfo } from "./types"
 import moment from "moment-timezone"
 import { connect } from "react-redux"
 import { State } from "../../../../reducers";
@@ -30,7 +30,10 @@ function CityWeather(props: Props) {
         <Fragment>
             {weatherInfo &&
                 <div className="weather__container">
-                    <div className="weather__info-block">{weatherInfo.stateIconId}</div>
+                    <div className="weather__info-block">
+                        <i className="wi-day-sleet-storm">{weatherInfo.weather.stateIconId}</i>
+                        <span>{weatherInfo.weather.description}</span>
+                    </div>
                     <div className="weather__info-block weather__info-block--first-ordered">
                         <span className="weather__current-time">{moment.tz(props.timezone).format("HH")}</span>
                         <span className="weather__current-time">{moment.tz(props.timezone).format("mm")}</span>

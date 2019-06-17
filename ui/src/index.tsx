@@ -1,4 +1,5 @@
 import "./css/main.css"
+import "./css/weather-icons.min.css"
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
