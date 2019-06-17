@@ -35,9 +35,12 @@ module.exports.getUserCities = async (request, response) => {
 
         const cityIds = cityIdsRes.rows.map((row) => (row.city_id))
         const paramQueries = cityIdsRes.rows.map((row, i) => (`$${i + 1}`))
-
-        const citiesRes = await pool.query(`SELECT geonameid, name, timezone FROM geoname WHERE geonameid IN (${[...paramQueries]})`, cityIds)
-        response.json(citiesRes.rows)
+        if (cityIds.length) {
+            const citiesRes = await pool.query(`SELECT geonameid, name, timezone FROM geoname WHERE geonameid IN (${[...paramQueries]})`, cityIds)
+            response.json(citiesRes.rows)
+        } else {
+            response.json([])
+        }
     } catch (err) {
         response.err(err)
     }

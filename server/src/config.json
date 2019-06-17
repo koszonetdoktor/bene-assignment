@@ -5,7 +5,7 @@
     "db": {
         "user": "gergohalmi",
         "host": "localhost",
-        "database": "testdb",
+        "database": "mylocaldb",
         "port": 5432
     }
 }
