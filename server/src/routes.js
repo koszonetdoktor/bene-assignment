@@ -6,6 +6,10 @@ const router = Router()
 
 router.post("/authenticate", handlers.authenticate)
 
+router.get("/validateCredentials", authorization, (request, response) => {
+    response.sendStatus(200)
+})
+
 router.get("/users/cities", authorization, handlers.getUserCities)
 
 router.post("/users/cities", authorization, handlers.addCityToUser)
