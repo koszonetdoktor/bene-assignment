@@ -1,0 +1,9 @@
+.selector__filtered-list {
+    align-self: flex-start;
+    padding: 0;
+    height: 230px;
+}
+.selector__list-element {
+    font-size: 24px;
+    font-weight: bold;
+}

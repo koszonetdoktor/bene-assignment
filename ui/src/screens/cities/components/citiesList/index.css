@@ -1,0 +1,16 @@
+.cities__list {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.cities__city-name {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.cities__add-city {
+    font-size: 36px;
+    font-weight: bold;
+    color: #61ea61;
+}

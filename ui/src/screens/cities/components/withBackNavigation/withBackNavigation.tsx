@@ -1,4 +1,5 @@
 import React from "react";
+import "./index.css"
 
 function withBackNavigation(WrappedPage) {
     return function (props) {
@@ -7,7 +8,7 @@ function withBackNavigation(WrappedPage) {
         }
         return (
             <div>
-                <span onClick={onNavigateBack} >{"<"}</span>
+                <span className="back-nav__arrow" onClick={onNavigateBack} >{"<"}</span>
                 <WrappedPage {...props} />
             </div>
         )

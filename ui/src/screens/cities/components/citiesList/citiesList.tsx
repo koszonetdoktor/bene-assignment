@@ -3,7 +3,8 @@ import { connect } from "react-redux"
 import { State } from "../../../../reducers"
 import { RouteComponentProps } from "react-router-dom"
 import { getCitiesList } from "../../../../actions/listActions"
-import { City } from "../../types";
+import { City } from "../../types"
+import "./index.css"
 
 type Props = RouteComponentProps & {
     userCities: City[],
@@ -29,7 +30,11 @@ function CitiesList(props: Props) {
     const renderCities = () => {
         return props.userCities.map(userCity => {
             return (
-                <li key={userCity.geonameid as number} onClick={onSelectCity(userCity.geonameid)}>
+                <li
+                    className="cities__city-name"
+                    key={userCity.geonameid as number}
+                    onClick={onSelectCity(userCity.geonameid)}
+                >
                     {userCity.name}
                 </li>
             )
@@ -37,9 +42,10 @@ function CitiesList(props: Props) {
     }
 
     return (
-        <ul>
+        <ul className="cities__list">
             {renderCities()}
             <li
+                className="cities__add-city"
                 key="plus"
                 onClick={onAddNewCity}
             >

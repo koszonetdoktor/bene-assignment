@@ -1,0 +1,7 @@
+.back-nav__arrow {
+    position: absolute;
+    top: 1vh;
+    left: 1vw;
+    font-size: 36px;
+    font-weight: bold;
+}

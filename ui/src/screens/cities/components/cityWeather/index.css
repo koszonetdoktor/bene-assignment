@@ -1,0 +1,41 @@
+.weather__container {
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.weather__info-block{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.weather__current-time {
+    color: #267DBD;
+    font-size: 42px;
+}
+
+.waether__city-name  {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.weather__end-time {
+    color: #3893B1
+}
+
+.weather__temp {
+    color: #3893B1;
+    font-size: 18px;
+}
+
+@media(max-width: 300px) {
+    .weather__container {
+        flex-direction: column;
+    }
+    .weather__info-block--first-ordered {
+        order: -1;
+    }
+}

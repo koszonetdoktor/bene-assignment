@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import axios from "../../utils/axios"
 import { RouteComponentProps } from "react-router-dom"
+import "./index.css"
 
 function Login(props: RouteComponentProps) {
     const [credentials, setCredentials] = useState<{ name: string, pw: string }>({ name: "", pw: "" })
@@ -26,31 +27,30 @@ function Login(props: RouteComponentProps) {
                 setIsLoginError(true)
             })
     }
-    console.log(props)
     return (
-        <div>
-            <form>
-                <label>
-                    Username
-                    <input
-                        type="text"
-                        name="name"
-                        autoFocus={true}
-                        value={credentials.name}
-                        onChange={onInputChange}
-                    />
-                </label>
-                <label>
-                    Password
-                    <input
-                        type="text"
-                        name="pw"
-                        value={credentials.pw}
-                        onChange={onInputChange}
-                    />
-                </label>
-            </form>
-            <button onClick={onFormSubmit}>Login</button>
+        <div className="form__container">
+            <div className="form__input-form">
+                <label className="form__input-label">Username</label>
+                <input
+                    className="form__text-input"
+                    type="text"
+                    name="name"
+                    autoFocus={true}
+                    value={credentials.name}
+                    onChange={onInputChange}
+                />
+            </div>
+            <div className="form__input-form">
+                <label className="form__input-label">Password</label>
+                <input
+                    className="form__text-input"
+                    type="password"
+                    name="pw"
+                    value={credentials.pw}
+                    onChange={onInputChange}
+                />
+            </div>
+            <button className="btn" onClick={onFormSubmit}>Login</button>
             {isLoginError && <span>ERROR</span>}
         </div>
     )

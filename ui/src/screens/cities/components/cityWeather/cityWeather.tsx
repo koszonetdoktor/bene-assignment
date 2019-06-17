@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, Fragment } from "react"
 import withBackNavigation from "../withBackNavigation"
 import { RouteComponentProps } from "react-router-dom"
 import axios from "../../../../utils/axios"
@@ -6,6 +6,7 @@ import { WeatherInfo, defaultWeatherInfo } from "./types"
 import moment from "moment-timezone"
 import { connect } from "react-redux"
 import { State } from "../../../../reducers";
+import "./index.css"
 
 type Props = RouteComponentProps<{ id: string }> & {
     timezone: string
@@ -26,18 +27,23 @@ function CityWeather(props: Props) {
     }, [])
 
     return (
-        <div>
+        <Fragment>
             {weatherInfo &&
-                <div>
-                    <span>Rise: {moment.unix(weatherInfo.sunriseTime).tz(props.timezone).format("HH:mm")}</span>
-                    <span>Set: {moment.unix(weatherInfo.sunsetTime).tz(props.timezone).format("HH:mm")}</span>
-                    <span>Current: {moment.tz(props.timezone).format("HH:mm")}</span>
-                    <span>Temperature: {weatherInfo.temperature}</span>
-                    <span>Name: {props.cityName}</span>
-                    <span>ICon: {weatherInfo.stateIconId}</span>
+                <div className="weather__container">
+                    <div className="weather__info-block">{weatherInfo.stateIconId}</div>
+                    <div className="weather__info-block weather__info-block--first-ordered">
+                        <span className="weather__current-time">{moment.tz(props.timezone).format("HH")}</span>
+                        <span className="weather__current-time">{moment.tz(props.timezone).format("mm")}</span>
+                        <span className="waether__city-name">{props.cityName}</span>
+                    </div>
+                    <div className="weather__info-block">
+                        <span className="weather__temp">{weatherInfo.temperature} &#8451;</span>
+                        <span className="weather__end-time">{moment.unix(weatherInfo.sunriseTime).tz(props.timezone).format("HH:mm")}</span>
+                        <span className="weather__end-time">{moment.unix(weatherInfo.sunsetTime).tz(props.timezone).format("HH:mm")}</span>
+                    </div>
                 </div>
             }
-        </div>
+        </Fragment>
     )
 }
 

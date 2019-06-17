@@ -5,7 +5,8 @@ import { City, defaultCity } from "../../types"
 import FilteredCityList from "./components/filteredCityList"
 import { connect } from "react-redux"
 import { addCityToList } from "../../../../actions/listActions"
-import withBackNavigation from "../withBackNavigation";
+import withBackNavigation from "../withBackNavigation"
+import "./index.css"
 
 type Props = RouteComponentProps & {
     addCity: (city: City) => void
@@ -43,22 +44,23 @@ function CitySelector(props: Props) {
     }
 
     return (
-        <div>
-            <form>
-                <label>
-                    <input
-                        type="text"
-                        autoFocus={true}
-                        value={city.name}
-                        onChange={onCityNameChanged}
-                    />
-                </label>
-            </form>
+        <div className="form__container">
+            <div className="form__input-form">
+                <input
+                    className="form__text-input"
+                    type="text"
+                    autoFocus={true}
+                    value={city.name}
+                    onChange={onCityNameChanged}
+                />
+            </div>
             <FilteredCityList
                 cities={filteredCities}
                 onCitySelected={onCitySelected}
+                currName={city.name}
             />
             <button
+                className="btn "
                 disabled={city.geonameid === null}
                 onClick={onSave}
             >

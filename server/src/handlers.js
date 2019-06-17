@@ -59,7 +59,7 @@ module.exports.addCityToUser = (request, response) => {
 module.exports.getFilteredCities = (request, response) => {
     const { filterName } = request.params
 
-    pool.query("SELECT geonameid, name, timezone FROM geoname WHERE name ILIKE '%' || $1 ||'%' LIMIT 5", [filterName], (err, res) => {
+    pool.query("SELECT geonameid, name, timezone FROM geoname WHERE name ILIKE '%' || $1 ||'%' LIMIT 8", [filterName], (err, res) => {
         if (err) {
             response.status(400).send({ error: err })
         }
