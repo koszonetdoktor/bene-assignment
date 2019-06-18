@@ -1,8 +1,7 @@
-import "./css/main.css"
+import "./scss/main.scss"
 import "./css/weather-icons.min.css"
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 

@@ -1,3 +1,5 @@
+@import "../default.scss";
+
 .form__container {
     display: flex;
     flex-direction: column;
@@ -12,26 +14,26 @@
 .form__text-input {
     background: transparent;
     border: none;
-    border-bottom: solid 1px #267DBD;
+    border-bottom: solid 1px map-get($colors, 3);
     outline: none;
-    color: #93B7CC;   
-    font-size: 24px;
+    color:  map-get($colors, 4);   
+    font-size: map-get($sizes, xl);
     font-weight: bold;
 }
 
 .form__input-label {
     display: block;
-    font-size: 8px;
+    font-size: map-get($sizes, s);
     text-transform: uppercase;
-    color: #267DBD;
+    color: map-get($colors, 3);
 }
 
 .form__button {
     background: transparent;
-    color: #3893B1;
+    color: map-get($colors, 3);
     border: none;
-    font-size: 16px;
+    font-size: map-get($sizes, l);
     text-transform: uppercase;
     font-weight: bold;
-    padding-top: 24px;
+    padding-top: map-get($sizes, xl);
 }

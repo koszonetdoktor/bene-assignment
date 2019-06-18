@@ -10,27 +10,27 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 12px;
+    padding-bottom: map-get($sizes, m);
 }
 
 .weather__current-time {
-    color: #267DBD;
-    font-size: 42px;
+    color: map-get($colors, 3);
+    font-size: map-get($sizes, xxxl);
 }
 
 .waether__city-name  {
-    font-size: 24px;
+    font-size: map-get($sizes, xl);
     font-weight: bold;
 }
 
 .weather__end-time {
-    color: #3893B1
+    color: map-get($colors, 5);
 }
 
 .weather__temp {
-    color: #3893B1;
-    font-size: 18px;
-    padding-bottom: 12px;
+    color: map-get($colors, 5);
+    font-size: map-get($sizes, l);
+    padding-bottom: map-get($sizes, m);
 }
 
 @media(max-width: 400px) {
@@ -39,6 +39,6 @@
     }
     .weather__info-block--first-ordered {
         order: -1;
-        padding-bottom: 42px;
+        padding-bottom: map-get($sizes, xxxl);
     }
 }

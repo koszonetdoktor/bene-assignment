@@ -4,7 +4,6 @@ import { State } from "../../../../reducers"
 import { RouteComponentProps } from "react-router-dom"
 import { getCitiesList } from "../../../../actions/listActions"
 import { City } from "../../types"
-import "./index.css"
 
 type Props = RouteComponentProps & {
     userCities: City[],

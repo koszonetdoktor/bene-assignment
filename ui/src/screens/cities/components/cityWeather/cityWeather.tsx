@@ -6,7 +6,6 @@ import { WeatherInfo } from "./types"
 import moment from "moment-timezone"
 import { connect } from "react-redux"
 import { State } from "../../../../reducers";
-import "./index.css"
 
 type Props = RouteComponentProps<{ id: string }> & {
     timezone: string

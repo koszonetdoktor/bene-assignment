@@ -1,0 +1,43 @@
+@import "./default.scss";
+@import "./components/form.scss";
+@import "./components/selector.scss";
+@import "./components/list.scss";
+@import "./components/weather.scss";
+
+body {
+    background-color: map-get($colors, 1);
+    font-family: Roboto;
+    color: map-get($colors, 4);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+li {
+    list-style-type: none;
+}
+
+button:focus {
+    outline: 0px;
+}
+
+.btn {
+    background: transparent;
+    color: map-get($colors, 4);
+    border: none;
+    font-size: map-get($sizes, l);
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding-top: 24px;
+}
+
+.back-nav__arrow {
+    position: absolute;
+    top: 1vh;
+    left: 1vw;
+    font-size: map-get($sizes, xl);
+    font-weight: bold;
+}

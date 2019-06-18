@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import axios from "../../utils/axios"
 import { RouteComponentProps } from "react-router-dom"
-import "./index.css"
 
 function Login(props: RouteComponentProps) {
     const [credentials, setCredentials] = useState<{ name: string, pw: string }>({ name: "", pw: "" })

@@ -6,7 +6,6 @@ import FilteredCityList from "./components/filteredCityList"
 import { connect } from "react-redux"
 import { addCityToList } from "../../../../actions/listActions"
 import withBackNavigation from "../withBackNavigation"
-import "./index.css"
 
 type Props = RouteComponentProps & {
     addCity: (city: City) => void
