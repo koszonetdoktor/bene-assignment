@@ -22,7 +22,6 @@ function CitiesList(props: Props) {
     }
 
     const onSelectCity = (cityId: number | null) => () => {
-        console.log("mathc", props.match)
         props.history.push(`${props.match.path}/weather/${cityId}`)
     }
 

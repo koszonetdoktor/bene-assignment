@@ -10,7 +10,6 @@ const defaultState: State = {
 };
 
 export default function citiesListReducer(state: State = defaultState, action: any): State {
-    console.log("update", action)
     switch (action.type) {
         case types.GET_CITIES_SUCCESS:
             return {

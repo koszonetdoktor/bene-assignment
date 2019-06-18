@@ -3,7 +3,6 @@ import * as types from "./actionTypes"
 import { City } from "../screens/cities/types"
 
 export const getCitiesList = () => (dispatch) => {
-    console.log("GOT")
     axios.get("/users/cities")
         .then((resp) => {
             dispatch({

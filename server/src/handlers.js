@@ -49,7 +49,6 @@ module.exports.getUserCities = async (request, response) => {
 module.exports.addCityToUser = (request, response) => {
     const { name } = request
     const { cityId } = request.body
-    console.log("add to ", name, cityId)
 
     pool.query("INSERT INTO users_cities(user_name, city_id) VALUES($1, $2)", [name, cityId], (err, res) => {
         if (err) {
@@ -72,10 +71,8 @@ module.exports.getFilteredCities = (request, response) => {
 
 module.exports.getCityWeather = (request, response) => {
     const { cityId } = request.params
-    console.log("get by id: ", cityId)
     getWeatherInfo(cityId)
         .then((rawWeather) => {
-            console.log("got", rawWeather)
             const weatherResp = {
                 sunriseTime: rawWeather.sys.sunrise,
                 sunsetTime: rawWeather.sys.sunset,
@@ -87,7 +84,6 @@ module.exports.getCityWeather = (request, response) => {
             }
             response.json(weatherResp)
         }).catch((err) => {
-            console.log("couldnt", err)
             response.status(400).send({ error: err })
         })
 }
