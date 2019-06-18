@@ -6,6 +6,7 @@ import { WeatherInfo } from "./types"
 import moment from "moment-timezone"
 import { connect } from "react-redux"
 import { State } from "../../../../reducers";
+import RunningClock from "./components/runningClock";
 
 type Props = RouteComponentProps<{ id: string }> & {
     timezone: string
@@ -34,8 +35,7 @@ function CityWeather(props: Props) {
                         <span>{weatherInfo.weather.description}</span>
                     </div>
                     <div className="weather__info-block weather__info-block--first-ordered">
-                        <span className="weather__current-time">{moment.tz(props.timezone).format("HH")}</span>
-                        <span className="weather__current-time">{moment.tz(props.timezone).format("mm")}</span>
+                        <RunningClock timezone={props.timezone} />
                         <span className="waether__city-name">{props.cityName}</span>
                     </div>
                     <div className="weather__info-block">
